@@ -1,0 +1,97 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+.env
+.venv
+env/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data files
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.zip
+
+# Models and large files
+*.h5
+*.pkl
+*.model
+*.pt
+*.pth
+*.weights
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Local configuration
+config.local.js
+.env.local
+
+# Pygame specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.dll
+*.exe
+*.o
+*.obj
+
+# Game assets that might be large or generated
+assets/temp/
+assets/generated/
+screenshots/
+recordings/
+highscores.dat
+
+# Pygame cache
+.pygame_cache/
