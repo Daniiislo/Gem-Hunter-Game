@@ -1,72 +1,33 @@
 import time
-from generate_cnf import generate_cnf, read_board, get_vars, var_id
+from src.Algorithms.generate_CNF import generate_cnf, get_var_ids
+from src.Utils.file_utils import read_board
+from src.Utils.algorithm_utils import get_board_result, is_clause_definitely_unsatisfied, is_formula_satisfied, get_unassigned_variable
 from itertools import product
 
-def is_clause_satisfied(clause, assignment):
-    for literal in clause:
-        var = abs(literal)
-        if var in assignment:
-            val = assignment[var]
-            if (literal > 0 and val) or (literal < 0 and not val):
-                return True
-    return False
-
-def is_clause_definitely_unsatisfied(clause, assignment):
-    for literal in clause:
-        var = abs(literal)
-        if var not in assignment:
-            return False  # this literal is not assigned yet
-        val = assignment[var]
-        if (literal > 0 and val) or (literal < 0 and not val):
-            return False  # this literal is satisfied
-    return True  # all literals are assigned and unsatisfied
-
-def is_formula_satisfied(clauses, assignment):
-    return all(is_clause_satisfied(clause, assignment) for clause in clauses)
-
-def get_unassigned_variable(vars, assignment):
-    for v in vars:
-        if v not in assignment:
-            return v
-    return None
-
-def bruteforce(clauses, assignment, vars):
-    for bits in product([False, True], repeat=len(vars)):
-        assignment = dict(zip(vars, bits))
+def bruteforce(clauses, assignment, var_ids, cancel_flag=None):
+    for bits in product([False, True], repeat=len(var_ids)):
+        # Check if solving has been cancelled
+        if cancel_flag and cancel_flag():
+            return None
+            
+        assignment = dict(zip(var_ids, bits))
         if is_formula_satisfied(clauses, assignment):
             return assignment
     return None
 
-def get_board_result(board, assignment):
-    rows, cols = len(board), len(board[0])
-    result = []
-
-    for i in range(rows):
-        row = []
-        for j in range(cols):
-            cell = board[i][j]
-            if cell == '_':
-                var = var_id(i, j, cols)
-                row.append("T" if assignment.get(var, False) else "G")
-            else:
-                row.append(cell)
-        result.append(row)
-    
-    return result
-
-def solve_by_bruteforce(input_file):
+def bruteforce_solver(input_file, cancel_check=None):
     board = read_board(input_file)
-    clauses, num_vars = generate_cnf(board)
-    vars = get_vars(board)
+    clauses = generate_cnf(board)
+    var_ids = get_var_ids(board)
 
     # Start the timer
     start_time = time.time()
 
-    # Solve problem using brute-force
-    assignment = bruteforce(clauses, {}, vars)
+    assignment = bruteforce(clauses, {}, var_ids, cancel_check)
 
     bruteforce_time = time.time() - start_time
+
     if assignment:
         return get_board_result(board, assignment), bruteforce_time
     else:
-        return None
+        return None, bruteforce_time

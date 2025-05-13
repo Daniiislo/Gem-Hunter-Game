@@ -1,0 +1,5 @@
+Algorithm: Bruteforce
+Grid Size: 11x11
+Solving Time: 0.00 seconds
+Result Board:
+Timeout reached, no solution found.

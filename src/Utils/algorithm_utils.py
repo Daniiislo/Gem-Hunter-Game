@@ -9,6 +9,39 @@ def get_neighbors(r, c, rows, cols):
 def one_based_var_id(r, c, cols):
     return r * cols + c + 1 # SAT variables are 1-based
 
+def is_clause_satisfied(clause, assignment):
+    for literal in clause:
+        abs_id = abs(literal)
+        if abs_id in assignment:
+            value = assignment[abs_id]
+            if (literal > 0 and value) or (literal < 0 and not value):
+                return True # this literal is satisfied
+    return False
+
+def is_clause_definitely_unsatisfied(clause, assignment):
+    for literal in clause:
+        abs_id = abs(literal)
+        if abs_id not in assignment:
+            return False # this literal is not assigned yet
+        
+        value = assignment[abs_id]
+        if (literal > 0 and value) or (literal < 0 and not value):
+            return False # this literal is satisfied
+        
+    return True # all literals are assigned and unsatisfied
+
+def is_formula_satisfied(clauses, assignment):
+    for clause in clauses:
+        if not is_clause_satisfied(clause, assignment):
+            return False
+    return True
+
+def get_unassigned_variable(var_ids, assignment):
+    for v in var_ids:
+        if v not in assignment:
+            return v
+    return None
+
 def check_result(board):
     rows, cols = len(board), len(board[0])
 
