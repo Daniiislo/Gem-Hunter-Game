@@ -28,6 +28,14 @@ class GameState:
         self.__elapsed_time = 0
         self.__timeout_reached = False
         self.__cancel_solving = False
+
+    def reset_solving_state(self):
+        self.__is_solving = False
+        self.__solver_thread = None
+        self.__solution_start_time = 0
+        self.__elapsed_time = 0
+        self.__timeout_reached = False
+        self.__cancel_solving = False
         
     # getter/setter
     @property

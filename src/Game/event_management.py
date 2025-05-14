@@ -63,6 +63,8 @@ class EventHandler:
             if self.screen_manager.back_button.is_clicked(mouse_pos, True):
                 # Back to level select screen
                 self.game_state.current_screen = self.game_state.LEVEL_SELECT
+                # Reset selected size
+                self.game_state.selected_size = None
             
             # Check if any algorithm button is clicked
             for i, button in enumerate(self.screen_manager.algorithm_buttons):
@@ -77,11 +79,10 @@ class EventHandler:
         elif self.game_state.current_screen == self.game_state.PUZZLE_SCREEN:
             # Back to algorithm select screen
             if self.screen_manager.back_button.is_clicked(mouse_pos, True):
-                self.game_state.timeout_reached = False
-                self.game_state.cancel_solving = False
-                self.game_state.is_solving = False
-                
                 self.game_state.current_screen = self.game_state.ALGORITHM_SELECT
+                # Reset selected algorithm
+                self.game_state.selected_algorithm = None
+                self.game_state.reset_solving_state()
             
             # Handle solve or cancel button clicks
             if not self.game_state.is_solving and self.screen_manager.solve_button.is_clicked(mouse_pos, True):
@@ -90,11 +91,12 @@ class EventHandler:
             elif self.game_state.is_solving and self.screen_manager.cancel_button.is_clicked(mouse_pos, True):
                 # Cancel solving
                 self._cancel_solving()
-                
+
         elif self.game_state.current_screen == self.game_state.RESULT_SCREEN:
             # Back to puzzle screen
             if self.screen_manager.back_button.is_clicked(mouse_pos, True):
                 self.game_state.current_screen = self.game_state.PUZZLE_SCREEN
+                self.game_state.reset_solving_state()
     
     def _start_solving_process(self):
         # Set up solving state
@@ -116,13 +118,7 @@ class EventHandler:
         if self.game_state.is_solving:
             # Reset cursor
             pygame.mouse.set_cursor(self.original_cursor)
-
-            self.game_state.cancel_solving = True
-            self.game_state.timeout_reached = False
-            self.game_state.is_solving = False
-            self.game_state.solver_thread = None
-            self.game_state.elapsed_time = 0
-            self.game_state.solution_start_time = 0
+            self.game_state.reset_solving_state()
             
     
     def _solve_puzzle_threaded(self):
@@ -154,8 +150,9 @@ class EventHandler:
                 print(f"Error solving puzzle: {e}")
             
             if  self.game_state.timeout_reached:
-                # Solving was cancelled
+                # If timeout reached, write a timeout result
                 write_result(self.game_state.selected_algorithm, self.game_state.selected_size, None, 0, output_file, True)
+
                 self._finish_solving(None, time.time() - start_time)
                 return
             if self.game_state.cancel_solving:
@@ -191,6 +188,7 @@ class EventHandler:
                 # Only go to result screen if solution was found
                 if result is not None:
                     self.game_state.current_screen = self.game_state.RESULT_SCREEN
+                    self.game_state.reset_solving_state()
 
     def _load_puzzle(self):
         # Load puzzle based on the selected size

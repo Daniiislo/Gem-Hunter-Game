@@ -1,6 +1,6 @@
 Algorithm: Bruteforce
 Grid Size: 5x5
-Solving Time: 0.42 seconds
+Solving Time: 0.47 seconds
 Result Board:
 T,T,3,G,T
 T,6,T,T,3
