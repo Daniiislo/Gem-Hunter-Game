@@ -12,9 +12,9 @@ CELL_COLORS = {
 }
 
 INPUT_FILE = {
-            "5x5": "Input/input_1.txt",
-            "11x11": "Input/input_2.txt",
-            "20x20": "Input/input_3.txt"
+            "5x5": "Testcases/input_1.txt",
+            "11x11": "Testcases/input_2.txt",
+            "20x20": "Testcases/input_3.txt"
 }
 
 ALGORITHMS = ["Backtracking", "Bruteforce", "PySAT"]

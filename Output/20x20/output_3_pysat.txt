@@ -1,6 +1,6 @@
 Algorithm: PySAT
 Grid Size: 20x20
-Solving Time: 0.01 seconds
+Solving Time: 0.00 seconds
 Result Board:
 T,3,T,3,T,3,T,G,2,T,3,T,2,2,T,2,G,2,T,3
 3,T,4,T,4,T,3,2,T,4,T,4,T,3,2,T,3,4,T,T
