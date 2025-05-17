@@ -248,7 +248,7 @@ class ScreenManager:
         
         # Display solution time
         if self.game_state.solution_time is not None:
-            time_text = self.normal_font.render(f"Solution time: {self.game_state.solution_time:.2f} seconds", True, (255, 255, 255))
+            time_text = self.normal_font.render(f"Solution time: {self.game_state.solution_time:.5f} seconds", True, (255, 255, 255))
             time_rect = time_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 40))
             screen.blit(time_text, time_rect)
         

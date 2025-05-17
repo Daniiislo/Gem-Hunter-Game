@@ -1,5 +1,5 @@
 Algorithm: Bruteforce
 Grid Size: 20x20
-Solving Time: 0.00 seconds
+Solving Time: 0.00000 seconds
 Result Board:
 Timeout reached, no solution found.

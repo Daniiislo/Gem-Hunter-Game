@@ -128,11 +128,11 @@ Converts the puzzle into a SAT (Boolean Satisfiability) problem in Conjunctive N
 
 Algorithm performance varies significantly by puzzle size:
 
-| Algorithm    | 5×5   | 11×11   | 20×20   |
-| ------------ | ----- | ------- | ------- |
-| Backtracking | 0.00s | 0.00s   | 0.04s   |
-| Bruteforce   | 0.38s | Timeout | Timeout |
-| PySAT        | 0.00s | 0.00s   | 0.01s   |
+| Algorithm    | 5×5      | 11×11    | 20×20    |
+| ------------ | -------- | -------- | -------- |
+| Backtracking | 0.00088s | 0.00509s | 0.07420s |
+| Bruteforce   | 0.49694s | Timeout  | Timeout  |
+| PySAT        | 0.00079s | 0.00051s | 0.00130s |
 
 ## License
 

@@ -10,15 +10,10 @@ def write_result(algorithm, grid_size, board, solving_time, filename, timeout=Fa
     with open (filename, 'w') as f:
         f.write(f"Algorithm: {algorithm}\n")
         f.write(f"Grid Size: {grid_size}\n")
-        f.write(f"Solving Time: {solving_time:.2f} seconds\n")
+        f.write(f"Solving Time: {solving_time:.5f} seconds\n")
         f.write("Result Board:\n")
         if not timeout:
             for row in board:
                 f.write(','.join(row) + '\n')
         else:
             f.write("Timeout reached, no solution found.\n")
-
-        
-
-
-
