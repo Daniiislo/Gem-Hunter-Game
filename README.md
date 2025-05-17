@@ -48,7 +48,7 @@ Gem Hunter/
 │   ├── config.py                # Configuration settings
 │   └── runner.py                # Main game runner
 │
-├── Input/                       # Input puzzle files
+├── Testcases/                   # Input puzzle files
 │   ├── input_1.txt              # 5×5 puzzle
 │   ├── input_2.txt              # 11×11 puzzle
 │   └── input_3.txt              # 20×20 puzzle
